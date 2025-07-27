@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { CalendarGrid } from "../customComponents/calender/CalendarGrid";
 import { Header } from "../customComponents/layout/Header";
 import { getNextMonth, getPreviousMonth, processApiData } from "../utils/date";
 import { fetchMarketData } from "../api/MarketApi";
+import { DetailsPanel } from "@/customComponents/dashboard/DetailsPanel";
+import { format } from "date-fns";
 
 export const MarketExplorer: React.FC = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date("2025-07-01"));
@@ -14,6 +16,12 @@ export const MarketExplorer: React.FC = () => {
     queryFn: () => fetchMarketData("BTC-USD", currentMonth),
     select: processApiData,
   });
+
+  const selectedDayData = useMemo(() => {
+    if (!selectedDate || !data) return null;
+    const dateKey = format(selectedDate, "yyyy-MM-dd");
+    return data.find((d) => format(d.date, "yyyy-MM-dd") === dateKey) ?? null;
+  }, [selectedDate, data]);
 
   const handlePreviousMonth = () => {
     setCurrentMonth(getPreviousMonth(currentMonth));
@@ -27,6 +35,8 @@ export const MarketExplorer: React.FC = () => {
     setSelectedDate(date);
   };
 
+  const handlePanelClose = () => setSelectedDate(null);
+
   return (
     <div className="p-4 md:p-8">
       <Header
@@ -34,8 +44,10 @@ export const MarketExplorer: React.FC = () => {
         onNextMonth={handleNextMonth}
         onPreviousMonth={handlePreviousMonth}
       />
-      {isLoading && <p>Loading data...</p>}
-      {isError && <p>Error fetching data.</p>}
+      {isLoading && <p className="text-center">Loading data...</p>}
+      {isError && (
+        <p className="text-center text-red-500">Error fetching data.</p>
+      )}
       {data && (
         <CalendarGrid
           month={currentMonth}
@@ -44,6 +56,11 @@ export const MarketExplorer: React.FC = () => {
           data={data}
         />
       )}
+      <DetailsPanel
+        isOpen={!!selectedDayData}
+        onOpenChange={(isOpen) => !isOpen && handlePanelClose()}
+        dayData={selectedDayData}
+      />
     </div>
   );
 };
