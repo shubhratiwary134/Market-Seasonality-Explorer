@@ -1,7 +1,12 @@
 import "./App.css";
+import { MarketExplorer } from "./features/MarketExplorer";
 
 function App() {
-  return <div></div>;
+  return (
+    <main>
+      <MarketExplorer />
+    </main>
+  );
 }
 
 export default App;
