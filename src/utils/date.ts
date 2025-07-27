@@ -1,3 +1,4 @@
+import type { OhlcvData, ProcessedDayData } from "@/types/types";
 import {
   startOfMonth,
   endOfMonth,
@@ -42,4 +43,30 @@ export const getNextMonth = (month: Date): Date => {
 
 export const getPreviousMonth = (month: Date): Date => {
   return add(month, { months: -1 });
+};
+
+export const processApiData = (data: OhlcvData[]): ProcessedDayData[] => {
+  return data.map((day) => {
+    let performance: "positive" | "negative" | "neutral" = "neutral";
+    if (day.close > day.open) {
+      performance = "positive";
+    } else if (day.close < day.open) {
+      performance = "negative";
+    }
+
+    const volatility = day.low > 0 ? ((day.high - day.low) / day.low) * 100 : 0;
+
+    return {
+      date: new Date(day.timestamp),
+      volatility: volatility,
+      tradingVolume: day.volume,
+      performance: performance,
+      ohlc: {
+        open: day.open,
+        high: day.high,
+        low: day.low,
+        close: day.close,
+      },
+    };
+  });
 };

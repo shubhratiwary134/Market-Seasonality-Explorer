@@ -1,11 +1,15 @@
 import React from "react";
 import { format, isToday, isSameMonth } from "date-fns";
 import clsx from "clsx";
+import { getVolatilityColor } from "../../utils/styleCalendar";
+import { ArrowUp, ArrowDown } from "lucide-react";
+import type { ProcessedDayData } from "@/types/types";
 
 interface CalendarCellProps {
   day: Date;
   currentMonth: Date;
   isSelected: boolean;
+  dayData?: ProcessedDayData;
   onClick: (day: Date) => void;
 }
 
@@ -13,20 +17,27 @@ export const CalendarCell: React.FC<CalendarCellProps> = ({
   day,
   currentMonth,
   isSelected,
+  dayData,
   onClick,
 }) => {
   const isCurrentMonth = isSameMonth(day, currentMonth);
   const isTodaysDate = isToday(day);
+  const hasData = !!dayData;
+
+  const cellBgColor = hasData
+    ? getVolatilityColor(dayData.volatility)
+    : "hover:bg-blue-50";
 
   return (
     <div
       onClick={() => onClick(day)}
       className={clsx(
-        "relative h-24 border-t border-r border-gray-200 p-2 text-sm transition-colors duration-150 cursor-pointer hover:bg-blue-50",
+        "relative h-28 border-t border-r border-gray-200 p-2 text-sm transition-colors duration-150 cursor-pointer",
+        cellBgColor,
         {
           "text-gray-900": isCurrentMonth,
           "text-gray-400": !isCurrentMonth,
-          "bg-blue-100": isSelected,
+          "ring-2 ring-blue-600 ring-inset z-10": isSelected,
         }
       )}
     >
@@ -41,6 +52,16 @@ export const CalendarCell: React.FC<CalendarCellProps> = ({
       >
         {format(day, "d")}
       </time>
+      {hasData && (
+        <div className="absolute bottom-2 right-2 flex items-center gap-1">
+          {dayData.performance === "positive" && (
+            <ArrowUp className="h-4 w-4 text-green-700" />
+          )}
+          {dayData.performance === "negative" && (
+            <ArrowDown className="h-4 w-4 text-red-700" />
+          )}
+        </div>
+      )}
     </div>
   );
 };

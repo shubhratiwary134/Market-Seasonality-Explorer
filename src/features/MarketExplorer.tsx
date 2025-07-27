@@ -1,11 +1,19 @@
 import React, { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { CalendarGrid } from "../customComponents/calender/CalendarGrid";
 import { Header } from "../customComponents/layout/Header";
-import { getNextMonth, getPreviousMonth } from "../utils/date";
+import { getNextMonth, getPreviousMonth, processApiData } from "../utils/date";
+import { fetchMarketData } from "../api/MarketApi";
 
 export const MarketExplorer: React.FC = () => {
-  const [currentMonth, setCurrentMonth] = useState(new Date());
+  const [currentMonth, setCurrentMonth] = useState(new Date("2025-07-01"));
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["marketData", "BTC-USD", currentMonth.toISOString()],
+    queryFn: () => fetchMarketData("BTC-USD", currentMonth),
+    select: processApiData,
+  });
 
   const handlePreviousMonth = () => {
     setCurrentMonth(getPreviousMonth(currentMonth));
@@ -26,11 +34,16 @@ export const MarketExplorer: React.FC = () => {
         onNextMonth={handleNextMonth}
         onPreviousMonth={handlePreviousMonth}
       />
-      <CalendarGrid
-        month={currentMonth}
-        selectedDate={selectedDate}
-        onDateSelect={handleDateSelect}
-      />
+      {isLoading && <p>Loading data...</p>}
+      {isError && <p>Error fetching data.</p>}
+      {data && (
+        <CalendarGrid
+          month={currentMonth}
+          selectedDate={selectedDate}
+          onDateSelect={handleDateSelect}
+          data={data}
+        />
+      )}
     </div>
   );
 };
