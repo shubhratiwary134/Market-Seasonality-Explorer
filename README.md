@@ -1,69 +1,47 @@
-# React + TypeScript + Vite
+Market Seasonality Explorer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An interactive web application for visualizing historical volatility, liquidity, and performance data for financial instruments on a dynamic calendar heatmap.
 
-Currently, two official plugins are available:
+✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+    Interactive Calendar Heatmap: Visualize daily market performance with a color-coded system (blue for low volatility, indigo for high).
 
-## Expanding the ESLint configuration
+    Multi-Timeframe Analysis: Seamlessly switch between Daily, Weekly, and Monthly aggregated data views.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+    Live API Integration: Fetches real-time historical data from the public Binance API.
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+    Instrument Filtering: Easily switch between different cryptocurrency pairs (e.g., BTCUSDT, ETHUSDT).
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+    Slide-Out Details Panel: Click on any day to view detailed OHLC data, volume, and an intraday price chart.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+    Responsive Design: A clean and modern UI that works flawlessly on desktop, tablet, and mobile devices.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+    Keyboard Navigation: Fully accessible calendar navigation using arrow keys.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+    CSV Export: Download the raw daily data for the currently viewed month as a CSV file.
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+    Animated UI: Smooth, fluid animations for all interactions, powered by Framer Motion.
+
+🛠️ Tech Stack & Libraries
+
+This project was built with a modern, performance-oriented tech stack.
+
+    Framework: React with Vite
+
+    Language: TypeScript
+
+    State Management: TanStack Query (React Query) for server state management.
+
+    Styling: Tailwind CSS for utility-first styling.
+
+    UI Components: shadcn/ui for accessible and composable base components.
+
+    Charting: Recharts for the intraday price chart.
+
+    Animation: Framer Motion for all UI animations.
+
+    Date Management: date-fns for all date-related logic.
+
+    CSV Parsing: Papaparse for CSV export functionality.
+
+    Icons: Lucide React
