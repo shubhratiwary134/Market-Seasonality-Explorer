@@ -52,7 +52,7 @@ export const CalendarCell: React.FC<CalendarCellProps> = ({
           <div
             onClick={() => onClick(day)}
             className={clsx(
-              "relative h-28 border-t border-r border-gray-200 p-2 text-sm transition-colors duration-150 cursor-pointer",
+              "relative h-16 md:h-28 border-t border-r border-gray-200 p-2 text-sm transition-colors duration-150 cursor-pointer",
               cellBgColor,
               {
                 "text-gray-900": isCurrentMonth,

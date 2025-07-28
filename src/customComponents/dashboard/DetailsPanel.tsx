@@ -46,7 +46,7 @@ export const DetailsPanel: React.FC<DetailsPanelProps> = ({
 
   return (
     <Sheet open={isOpen} onOpenChange={onOpenChange}>
-      <SheetContent className="p-5 min-w-xl">
+      <SheetContent className="p-5 min-w-full md:min-w-xl">
         <motion.div variants={panelVariants}>
           <SheetHeader>
             <SheetTitle>{format(dayData.date, "MMMM d, yyyy")}</SheetTitle>

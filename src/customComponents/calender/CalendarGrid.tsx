@@ -96,7 +96,7 @@ export const CalendarGrid: React.FC<CalendarGridProps> = ({
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="bg-white border-l  border-gray-200 shadow-md  rounded-3xl  overflow-hidden py-5"
+      className="bg-white  border-l border-b border-gray-200  shadow-md rounded-lg overflow-hidden  "
     >
       <CalendarHeader />
       <motion.div variants={cellListVariants} className="grid grid-cols-7">

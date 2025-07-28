@@ -39,7 +39,7 @@ export const Header: React.FC<HeaderProps> = ({
   onExport,
 }) => {
   return (
-    <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-6 gap-4">
+    <div className="flex flex-col items-center md:flex-row  md:items-center justify-between mb-6 gap-4">
       <h1 className="text-2xl font-bold text-gray-800">
         Market Explorer - {format(currentMonth, "MMMM yyyy")}
       </h1>
