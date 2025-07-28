@@ -11,6 +11,8 @@ import {
   aggregateDataByWeek,
 } from "@/utils/aggregationLogic";
 import { useKeyboardNavigation } from "@/hooks/useKeyboardNavigation";
+import { AnimatePresence } from "framer-motion";
+import { MetricsBar } from "@/customComponents/layout/MetricsBar";
 
 export const MarketExplorer: React.FC = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date("2025-07-01"));
@@ -82,27 +84,32 @@ export const MarketExplorer: React.FC = () => {
         onNextMonth={handleNextMonth}
         onPreviousMonth={handlePreviousMonth}
       />
+      <MetricsBar data={monthlyData} />
       {isLoading && <p className="text-center">Loading data...</p>}
       {isError && (
         <p className="text-center text-red-500">Error fetching data.</p>
       )}
-      {dailyData && (
-        <CalendarGrid
-          month={currentMonth}
-          selectedDate={selectedDate}
-          onDateSelect={setSelectedDate}
-          dailyData={dailyData}
-          weeklyData={weeklyData}
-          monthlyData={monthlyData}
-          viewMode={viewMode}
+      <AnimatePresence mode="wait">
+        {dailyData && (
+          <CalendarGrid
+            month={currentMonth}
+            selectedDate={selectedDate}
+            onDateSelect={setSelectedDate}
+            dailyData={dailyData}
+            weeklyData={weeklyData}
+            monthlyData={monthlyData}
+            viewMode={viewMode}
+          />
+        )}
+      </AnimatePresence>
+      <AnimatePresence mode="wait">
+        <DetailsPanel
+          isOpen={!!selectedDayData}
+          onOpenChange={(isOpen) => !isOpen && handlePanelClose()}
+          dayData={selectedDayData}
+          instrument={instrument}
         />
-      )}
-      <DetailsPanel
-        isOpen={!!selectedDayData}
-        onOpenChange={(isOpen) => !isOpen && handlePanelClose()}
-        dayData={selectedDayData}
-        instrument={instrument}
-      />
+      </AnimatePresence>
     </div>
   );
 };

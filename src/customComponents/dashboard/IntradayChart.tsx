@@ -7,6 +7,7 @@ import {
   YAxis,
   Tooltip,
   ResponsiveContainer,
+  CartesianGrid,
 } from "recharts";
 import { fetchIntradayData } from "@/api/MarketApi";
 
@@ -46,6 +47,7 @@ export const IntradayChart: React.FC<IntradayChartProps> = ({
           data={data}
           margin={{ top: 5, right: 20, left: -10, bottom: 5 }}
         >
+          <CartesianGrid />
           <XAxis
             dataKey="time"
             stroke="#888888"

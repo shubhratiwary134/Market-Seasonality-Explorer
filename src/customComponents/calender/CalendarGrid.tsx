@@ -5,6 +5,35 @@ import { CalendarCell } from "./CalendarCells";
 import { format, isWithinInterval } from "date-fns";
 import type { AggregatedData, ProcessedDayData } from "@/types/types";
 import type { ViewMode } from "../layout/Header";
+import { motion, type Variants } from "framer-motion";
+
+const gridContainerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.5,
+      ease: "easeInOut",
+    },
+  },
+  exit: {
+    opacity: 0,
+    transition: {
+      duration: 0.3,
+      ease: "easeInOut",
+    },
+  },
+};
+
+const cellListVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.03,
+    },
+  },
+};
 
 interface CalendarGridProps {
   month: Date;
@@ -62,9 +91,15 @@ export const CalendarGrid: React.FC<CalendarGridProps> = ({
   };
 
   return (
-    <div className="bg-white border-l border-b border-gray-200 shadow-md rounded-lg overflow-hidden py-5">
+    <motion.div
+      variants={gridContainerVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      className="bg-white border-l border-b border-gray-200 shadow-md rounded-lg overflow-hidden py-5"
+    >
       <CalendarHeader />
-      <div className="grid grid-cols-7">
+      <motion.div variants={cellListVariants} className="grid grid-cols-7">
         {calendarWeeks.flat().map((day, index) => {
           const dayData = findDataForDay(day);
           return (
@@ -80,7 +115,7 @@ export const CalendarGrid: React.FC<CalendarGridProps> = ({
             />
           );
         })}
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
