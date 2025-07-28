@@ -23,3 +23,18 @@ export interface ProcessedDayData {
     close: number;
   };
 }
+
+export interface AggregatedData {
+  startDate: Date;
+  endDate: Date;
+  volatility: number;
+  tradingVolume: number;
+  performance: "positive" | "negative" | "neutral";
+  open: number;
+  close: number;
+}
+
+export interface IntradayDataPoint {
+  time: string;
+  price: number;
+}

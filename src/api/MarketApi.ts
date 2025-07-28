@@ -1,49 +1,77 @@
-import type { OhlcvData } from "@/types/types";
+import type { IntradayDataPoint, OhlcvData } from "@/types/types";
+import {
+  startOfMonth,
+  endOfMonth,
+  format,
+  startOfDay,
+  endOfDay,
+} from "date-fns";
 
-const MOCK_BTC_DATA: OhlcvData[] = [
-  {
-    timestamp: 1751337000000,
-    open: 70000,
-    high: 71500,
-    low: 69800,
-    close: 71200,
-    volume: 1200,
-  },
-  {
-    timestamp: 1751423400000,
-    open: 71200,
-    high: 72000,
-    low: 71000,
-    close: 71800,
-    volume: 1500,
-  },
-  {
-    timestamp: 1751509800000,
-    open: 71800,
-    high: 71900,
-    low: 70500,
-    close: 70600,
-    volume: 1100,
-  },
-  {
-    timestamp: 1751596200000,
-    open: 70600,
-    high: 71200,
-    low: 70400,
-    close: 71100,
-    volume: 900,
-  },
-];
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL || "https://api.binance.com/api/v3/klines";
 
 export const fetchMarketData = async (
   instrument: string,
   month: Date
 ): Promise<OhlcvData[]> => {
-  console.log(`Fetching data for ${instrument} for month:`, month);
+  const startTime = startOfMonth(month).getTime();
+  const endTime = endOfMonth(month).getTime();
 
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(MOCK_BTC_DATA);
-    }, 1000);
+  const params = new URLSearchParams({
+    symbol: instrument,
+    interval: "1d",
+    startTime: String(startTime),
+    endTime: String(endTime),
+    limit: "1000",
   });
+
+  const response = await fetch(`${API_BASE_URL}?${params}`);
+
+  if (!response.ok) {
+    throw new Error(
+      `Failed to fetch data from Binance API: ${response.statusText}`
+    );
+  }
+
+  const data: any[][] = await response.json();
+
+  const formattedData: OhlcvData[] = data.map((d) => ({
+    timestamp: d[0],
+    open: parseFloat(d[1]),
+    high: parseFloat(d[2]),
+    low: parseFloat(d[3]),
+    close: parseFloat(d[4]),
+    volume: parseFloat(d[5]),
+  }));
+
+  return formattedData;
+};
+
+export const fetchIntradayData = async (
+  instrument: string,
+  date: Date
+): Promise<IntradayDataPoint[]> => {
+  const startTime = startOfDay(date).getTime();
+  const endTime = endOfDay(date).getTime();
+
+  const params = new URLSearchParams({
+    symbol: instrument,
+    interval: "1h",
+    startTime: String(startTime),
+    endTime: String(endTime),
+  });
+
+  const response = await fetch(`${API_BASE_URL}?${params}`);
+  if (!response.ok) {
+    throw new Error("Failed to fetch intraday data");
+  }
+
+  const data: any[][] = await response.json();
+
+  const formattedData: IntradayDataPoint[] = data.map((d) => ({
+    time: format(new Date(d[0]), "HH:mm"),
+    price: parseFloat(d[4]),
+  }));
+
+  return formattedData;
 };

@@ -1,4 +1,5 @@
 import React from "react";
+import { useQuery } from "@tanstack/react-query";
 import {
   LineChart,
   Line,
@@ -7,18 +8,37 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { fetchIntradayData } from "@/api/MarketApi";
 
-const data = [
-  { name: "00:00", price: 71200 },
-  { name: "04:00", price: 71350 },
-  { name: "08:00", price: 71500 },
-  { name: "12:00", price: 71400 },
-  { name: "16:00", price: 71600 },
-  { name: "20:00", price: 71750 },
-  { name: "23:59", price: 71800 },
-];
+interface IntradayChartProps {
+  instrument: string;
+  date: Date;
+}
 
-export const IntradayChart: React.FC = () => {
+export const IntradayChart: React.FC<IntradayChartProps> = ({
+  instrument,
+  date,
+}) => {
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["intradayData", instrument, date.toISOString()],
+    queryFn: () => fetchIntradayData(instrument, date),
+    enabled: !!date,
+    staleTime: 1000 * 60 * 60,
+  });
+
+  if (isLoading)
+    return (
+      <div className="h-48 w-full flex items-center justify-center text-sm text-gray-500">
+        Loading Chart...
+      </div>
+    );
+  if (isError)
+    return (
+      <div className="h-48 w-full flex items-center justify-center text-sm text-red-500">
+        Failed to load chart data.
+      </div>
+    );
+
   return (
     <div className="h-48 w-full mt-4">
       <ResponsiveContainer width="100%" height="100%">
@@ -27,11 +47,12 @@ export const IntradayChart: React.FC = () => {
           margin={{ top: 5, right: 20, left: -10, bottom: 5 }}
         >
           <XAxis
-            dataKey="name"
+            dataKey="time"
             stroke="#888888"
             fontSize={12}
             tickLine={false}
             axisLine={false}
+            interval="preserveStartEnd"
           />
           <YAxis
             stroke="#888888"

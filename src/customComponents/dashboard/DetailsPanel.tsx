@@ -17,12 +17,14 @@ interface DetailsPanelProps {
   isOpen: boolean;
   onOpenChange: (isOpen: boolean) => void;
   dayData: ProcessedDayData | null;
+  instrument: string;
 }
 
 export const DetailsPanel: React.FC<DetailsPanelProps> = ({
   isOpen,
   onOpenChange,
   dayData,
+  instrument,
 }) => {
   if (!dayData) return null;
 
@@ -54,7 +56,7 @@ export const DetailsPanel: React.FC<DetailsPanelProps> = ({
             <h3 className="text-lg font-semibold text-gray-800 mb-2">
               Intraday Price
             </h3>
-            <IntradayChart />
+            <IntradayChart instrument={instrument} date={dayData.date} />
           </div>
         </div>
       </SheetContent>
