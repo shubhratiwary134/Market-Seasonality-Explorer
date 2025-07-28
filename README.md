@@ -45,3 +45,9 @@ This project was built with a modern, performance-oriented tech stack.
     CSV Parsing: Papaparse for CSV export functionality.
 
     Icons: Lucide React
+
+Design and Architecture
+  Server State Management: All API interactions are handled by TanStack Query. This separates the concern of managing asynchronous server data from our client-side UI state, resulting in less code and more robust features like caching and background updates.
+
+  File Structure: The src directory is organized by feature/responsibility (api, components, features, utils, types) to make the codebase easy to navigate and maintain.
+
