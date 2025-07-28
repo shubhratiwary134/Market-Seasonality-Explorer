@@ -13,6 +13,7 @@ import {
 import { useKeyboardNavigation } from "@/hooks/useKeyboardNavigation";
 import { AnimatePresence } from "framer-motion";
 import { MetricsBar } from "@/customComponents/layout/MetricsBar";
+import { exportToCsv } from "@/utils/exportLogic";
 
 export const MarketExplorer: React.FC = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date("2025-07-01"));
@@ -72,6 +73,13 @@ export const MarketExplorer: React.FC = () => {
   const isNextMonthDisabled =
     isSameMonth(currentMonth, new Date()) || isAfter(currentMonth, new Date());
 
+  const handleExport = () => {
+    if (dailyData) {
+      const filename = `${instrument}_${format(currentMonth, "yyyy-MM")}.csv`;
+      exportToCsv(dailyData, filename);
+    }
+  };
+
   return (
     <div className="p-4 md:p-8 ">
       <Header
@@ -83,6 +91,7 @@ export const MarketExplorer: React.FC = () => {
         isNextMonthDisabled={isNextMonthDisabled}
         onNextMonth={handleNextMonth}
         onPreviousMonth={handlePreviousMonth}
+        onExport={handleExport}
       />
       <MetricsBar data={monthlyData} />
       {isLoading && <p className="text-center">Loading data...</p>}

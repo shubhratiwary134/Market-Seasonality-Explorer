@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { getCalendarMonth } from "../../utils/date";
 import { CalendarHeader } from "./CalendarHeader";
 import { CalendarCell } from "./CalendarCells";
-import { format, isWithinInterval } from "date-fns";
+import { format, isSameMonth, isWithinInterval } from "date-fns";
 import type { AggregatedData, ProcessedDayData } from "@/types/types";
 import type { ViewMode } from "../layout/Header";
 import { motion, type Variants } from "framer-motion";
@@ -63,7 +63,7 @@ export const CalendarGrid: React.FC<CalendarGridProps> = ({
   }, [dailyData]);
 
   const findDataForDay = (day: Date) => {
-    if (viewMode === "month" && monthlyData) {
+    if (viewMode === "month" && monthlyData && isSameMonth(day, month)) {
       return {
         date: day,
         ohlc: {
@@ -96,7 +96,7 @@ export const CalendarGrid: React.FC<CalendarGridProps> = ({
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="bg-white border-l border-b border-gray-200 shadow-md rounded-lg overflow-hidden py-5"
+      className="bg-white border-l  border-gray-200 shadow-md  rounded-3xl  overflow-hidden py-5"
     >
       <CalendarHeader />
       <motion.div variants={cellListVariants} className="grid grid-cols-7">

@@ -1,6 +1,6 @@
 import React from "react";
 import { format } from "date-fns";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Download } from "lucide-react";
 import { Button } from "../../components/ui/button";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import {
@@ -24,6 +24,7 @@ interface HeaderProps {
   isNextMonthDisabled: boolean;
   onPreviousMonth: () => void;
   onNextMonth: () => void;
+  onExport: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -35,11 +36,12 @@ export const Header: React.FC<HeaderProps> = ({
   isNextMonthDisabled,
   onPreviousMonth,
   onNextMonth,
+  onExport,
 }) => {
   return (
     <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-6 gap-4">
       <h1 className="text-2xl font-bold text-gray-800">
-        {format(currentMonth, "MMMM yyyy")}
+        Market Explorer - {format(currentMonth, "MMMM yyyy")}
       </h1>
       <Select value={instrument} onValueChange={onInstrumentChange}>
         <SelectTrigger className="w-[140px]">
@@ -69,6 +71,9 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="flex items-center gap-2">
           <Button variant="outline" size="icon" onClick={onPreviousMonth}>
             <ChevronLeft className="h-4 w-4" />
+          </Button>
+          <Button variant="outline" size="icon" onClick={onExport}>
+            <Download className="h-4 w-4" />
           </Button>
           <Button
             variant="outline"
