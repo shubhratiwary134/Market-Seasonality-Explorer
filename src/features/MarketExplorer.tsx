@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { CalendarGrid } from "../customComponents/calender/CalendarGrid";
 import { Header, type ViewMode } from "../customComponents/layout/Header";
@@ -10,6 +10,7 @@ import {
   aggregateDataByMonth,
   aggregateDataByWeek,
 } from "@/utils/aggregationLogic";
+import { useKeyboardNavigation } from "@/hooks/useKeyboardNavigation";
 
 export const MarketExplorer: React.FC = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date("2025-07-01"));
@@ -26,6 +27,24 @@ export const MarketExplorer: React.FC = () => {
     queryFn: () => fetchMarketData(instrument, currentMonth),
     select: processApiData,
   });
+
+  const { handleKeyDown } = useKeyboardNavigation({
+    date: selectedDate!,
+    setDate: setSelectedDate,
+    setCurrentMonth,
+  });
+
+  useEffect(() => {
+    const handleGlobalKeyDown = (event: KeyboardEvent) => {
+      if (selectedDate) {
+        handleKeyDown(event);
+      }
+    };
+    document.addEventListener("keydown", handleGlobalKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleGlobalKeyDown);
+    };
+  }, [selectedDate, handleKeyDown]);
 
   const weeklyData = useMemo(() => {
     return dailyData ? aggregateDataByWeek(dailyData) : [];
@@ -46,7 +65,6 @@ export const MarketExplorer: React.FC = () => {
   const handlePreviousMonth = () =>
     setCurrentMonth(getPreviousMonth(currentMonth));
   const handleNextMonth = () => setCurrentMonth(getNextMonth(currentMonth));
-  const handleDateSelect = (date: Date) => setSelectedDate(date);
   const handlePanelClose = () => setSelectedDate(null);
 
   const isNextMonthDisabled =
@@ -72,7 +90,7 @@ export const MarketExplorer: React.FC = () => {
         <CalendarGrid
           month={currentMonth}
           selectedDate={selectedDate}
-          onDateSelect={handleDateSelect}
+          onDateSelect={setSelectedDate}
           dailyData={dailyData}
           weeklyData={weeklyData}
           monthlyData={monthlyData}

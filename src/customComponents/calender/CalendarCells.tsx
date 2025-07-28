@@ -1,4 +1,3 @@
-import React from "react";
 import { format, isToday, isSameMonth } from "date-fns";
 import clsx from "clsx";
 import { getVolatilityColor } from "../../utils/styleCalendar";
