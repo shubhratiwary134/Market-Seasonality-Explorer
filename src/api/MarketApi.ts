@@ -7,7 +7,8 @@ import {
   endOfDay,
 } from "date-fns";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL || "https://api.binance.com/api/v3/klines";
 
 export const fetchMarketData = async (
   instrument: string,
