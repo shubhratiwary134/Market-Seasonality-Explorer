@@ -35,7 +35,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
         <h3 className="text-sm font-medium text-gray-500">{title}</h3>
         {icon}
       </div>
-      <p className="text-2xl font-semibold text-gray-800">{value}</p>
+      <p className="md:text-2xl font-semibold text-gray-800">{value}</p>
     </motion.div>
   );
 };

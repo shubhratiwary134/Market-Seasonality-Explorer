@@ -40,7 +40,7 @@ export const MetricsBar: React.FC<MetricsBarProps> = ({ data }) => {
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      className="grid grid-cols-1 md:grid-cols-3 gap-4 my-5"
+      className="grid grid-cols-1 items-center md:grid-cols-3 gap-4 my-5"
     >
       <MetricCard
         title="Total Volume"
