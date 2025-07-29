@@ -2,6 +2,8 @@ Market Seasonality Explorer
 
 An interactive web application for visualizing historical volatility, liquidity, and performance data for financial instruments on a dynamic calendar heatmap.
 
+![UI]("./src/assets/image.png")
+
 ✨ Features
 
   1) Interactive Calendar Heatmap: Visualize daily market performance with a color-coded system (blue for low volatility, indigo for high).
