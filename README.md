@@ -2,7 +2,7 @@ Market Seasonality Explorer
 
 An interactive web application for visualizing historical volatility, liquidity, and performance data for financial instruments on a dynamic calendar heatmap.
 
-![UI]("./src/assets/image.png")
+![UI](./src/assets/image.png)
 
 ✨ Features
 
