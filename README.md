@@ -16,6 +16,8 @@ An interactive web application for visualizing historical volatility, liquidity,
 
   5) Slide-Out Details Panel: Click on any day to view detailed OHLC data, volume, and an intraday price chart.
 
+  ![DetailsPanel](./src/assets/Screenshot 2025-07-29 070148.png)
+
   6) Design: A clean and modern UI that works flawlessly on desktop, tablet, and mobile devices.
 
   7) Keyboard Navigation: Fully accessible calendar navigation using arrow keys.
@@ -52,4 +54,6 @@ Design and Architecture
   Server State Management: All API interactions are handled by TanStack Query. This separates the concern of managing asynchronous server data from our client-side UI state, resulting in less code and more robust features like caching and background updates.
 
   File Structure: The src directory is organized by feature/responsibility (api, components, features, utils, types) to make the codebase easy to navigate and maintain.
+
+  Public API: The application uses the Binance Klines API. To maintain clean separation of concerns, the API fetching logic is organized within a dedicated api/ directory.
 
