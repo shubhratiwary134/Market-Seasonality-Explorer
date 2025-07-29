@@ -4,6 +4,14 @@ An interactive web application for visualizing historical volatility, liquidity,
 
 ![UI](./src/assets/image.png)
 
+📚 Documentation
+
+Detailed documentation (API reference, usage guides, etc.) is available at:
+
+https://market-seasonality-explorer.pages.dev/
+
+Feel free to explore and refer to it for setup steps, examples, and configuration info.
+
 ✨ Features
 
   1) Interactive Calendar Heatmap: Visualize daily market performance with a color-coded system (blue for low volatility, indigo for high).
@@ -56,4 +64,6 @@ Design and Architecture
   File Structure: The src directory is organized by feature/responsibility (api, components, features, utils, types) to make the codebase easy to navigate and maintain.
 
   Public API: The application uses the Binance Klines API. To maintain clean separation of concerns, the API fetching logic is organized within a dedicated api/ directory.
+
+
 
