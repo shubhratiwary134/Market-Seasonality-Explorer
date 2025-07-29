@@ -8,6 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
+     "docs": "typedoc src --entryPointStrategy expand --tsconfig tsconfig.app.json --out docs --excludePrivate --readme none",
     "test": "vitest"
   },
   "dependencies": {
