@@ -16,7 +16,7 @@ An interactive web application for visualizing historical volatility, liquidity,
 
   5) Slide-Out Details Panel: Click on any day to view detailed OHLC data, volume, and an intraday price chart.
 
-  ![DetailsPanel](./src/assets/Screenshot 2025-07-29 070148.png)
+  ![DetailsPanel](./src/assets/image2.png)
 
   6) Design: A clean and modern UI that works flawlessly on desktop, tablet, and mobile devices.
 
