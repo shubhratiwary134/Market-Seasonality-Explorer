@@ -66,4 +66,33 @@ Design and Architecture
   Public API: The application uses the Binance Klines API. To maintain clean separation of concerns, the API fetching logic is organized within a dedicated api/ directory.
 
 
+🚀 Installation Guide
+
+Follow these steps to set up and run the project locally.
+⚙️ Prerequisites
+
+Make sure you have the following installed:
+
+    Node.js (v18 or higher recommended)
+
+    npm or yarn
+
+📦 Clone the Repository
+
+git clone https://github.com/shubhratiwary134/Market-Seasonality-Explorer.git
+cd Market-Seasonality-Explorer
+
+📥 Install Dependencies
+
+npm install
+
+
+🚧 Start Development Server
+
+npm run dev
+
+Then open your browser and go to:
+
+http://localhost:5173
+
 
