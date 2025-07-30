@@ -80,6 +80,7 @@ Make sure you have the following installed:
 📦 Clone the Repository
 
 git clone https://github.com/shubhratiwary134/Market-Seasonality-Explorer.git
+
 cd Market-Seasonality-Explorer
 
 📥 Install Dependencies
