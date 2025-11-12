@@ -1,99 +1,104 @@
-Market Seasonality Explorer
-
-An interactive web application for visualizing historical volatility, liquidity, and performance data for financial instruments on a dynamic calendar heatmap.
-
-![UI](./src/assets/image.png)
-
-📚 Documentation
-
-Detailed documentation (API reference, usage guides, etc.) is available at:
-
-https://market-seasonality-explorer.pages.dev/
-
-Feel free to explore and refer to it for setup steps, examples, and configuration info.
-
-✨ Features
-
-  1) Interactive Calendar Heatmap: Visualize daily market performance with a color-coded system (blue for low volatility, indigo for high).
-
-  2) Multi-Timeframe Analysis: Seamlessly switch between Daily, Weekly, and Monthly aggregated data views.
-
-  3) Live API Integration: Fetches real-time historical data from the public Binance API.
-
-  4) Instrument Filtering: Easily switch between different cryptocurrency pairs (e.g., BTCUSDT, ETHUSDT).
-
-  5) Slide-Out Details Panel: Click on any day to view detailed OHLC data, volume, and an intraday price chart.
-
-  ![DetailsPanel](./src/assets/image2.png)
-
-  6) Design: A clean and modern UI that works flawlessly on desktop, tablet, and mobile devices.
-
-  7) Keyboard Navigation: Fully accessible calendar navigation using arrow keys.
-
-  8) CSV Export: Download the raw daily data for the currently viewed month as a CSV file.
-
-  9) Animated UI: Smooth, fluid animations for all interactions, powered by Framer Motion.
-
-🛠️ Tech Stack & Libraries
-
-This project was built with a modern, performance-oriented tech stack.
-
-    Framework: React with Vite
-
-    Language: TypeScript
-
-    State Management: TanStack Query (React Query) for server state management.
-
-    Styling: Tailwind CSS for utility-first styling.
-
-    UI Components: shadcn/ui for accessible and composable base components.
-
-    Charting: Recharts for the intraday price chart.
-
-    Animation: Framer Motion for all UI animations.
-
-    Date Management: date-fns for all date-related logic.
-
-    CSV Parsing: Papaparse for CSV export functionality.
-
-    Icons: Lucide React
-
-Design and Architecture
-  Server State Management: All API interactions are handled by TanStack Query. This separates the concern of managing asynchronous server data from our client-side UI state, resulting in less code and more robust features like caching and background updates.
-
-  File Structure: The src directory is organized by feature/responsibility (api, components, features, utils, types) to make the codebase easy to navigate and maintain.
-
-  Public API: The application uses the Binance Klines API. To maintain clean separation of concerns, the API fetching logic is organized within a dedicated api/ directory.
 
 
-🚀 Installation Guide
+-----
 
-Follow these steps to set up and run the project locally.
-⚙️ Prerequisites
+# Market Seasonality Explorer 📈
 
-Make sure you have the following installed:
+The **Market Seasonality Explorer** is a sophisticated financial data visualization tool built with React and TypeScript. It provides traders, analysts, and hobbyists with a powerful way to analyze and identify seasonal patterns in market data.
 
-    Node.js (v18 or higher recommended)
+This application fetches and processes historical market data, aggregating it by month or week to display key performance metrics in an interactive, color-coded calendar view. Users can quickly spot trends, average performance, and volatility to make more informed decisions.
 
-    npm or yarn
+## ✨ Core Features
 
-📦 Clone the Repository
+  * **Interactive Calendar UI:** A heatmap-style calendar (`CalendarGrid`) that visually represents market performance for each day.
+  * **Dynamic Data Aggregation:** Toggle between **Monthly** and **Weekly** views to analyze aggregated seasonality data.
+  * **Key Metrics Display:** Calculates and displays essential metrics for any selected period:
+      * **Average % Change:** The average price movement.
+      * **% Positive Days:** The percentage of days that closed positive.
+      * **% Negative Days:** The percentage of days that closed negative.
+      * **Volatility:** The standard deviation of price changes.
+  * **Color-Coded Heatmap:** Cells are colored based on volatility, making it easy to spot high-risk and low-risk periods (Green for low volatility, Red for high).
+  * **Detailed Day Drilldown:** Click on any day cell to open a side panel (`DetailsPanel`) showing:
+      * Specific OHLCV data for that day.
+      * An **Intraday Chart** (powered by **Recharts**) visualizing price movements.
+  * **Data Export:** A built-in "Export to CSV" function (`exportToCsv`) to download aggregated data for further analysis.
+  * **Responsive Design:** A clean, modern UI built with **Tailwind CSS** and **shadcn/ui** components, ensuring a great experience on all devices.
+  * **Keyboard Navigation:** Fully accessible calendar navigation using arrow keys, thanks to the `useKeyboardNavigation` hook.
 
-git clone https://github.com/shubhratiwary134/Market-Seasonality-Explorer.git
+## 🛠️ Tech Stack
 
-cd Market-Seasonality-Explorer
+  * **Frontend:** React 18
+  * **Language:** TypeScript
+  * **Build Tool:** Vite
+  * **Styling:** Tailwind CSS
+  * **UI Components:** shadcn/ui (using Radix UI)
+      * `Button`, `Select`, `Sheet`, `Tooltip`, `ToggleGroup`
+  * **Charting:** Recharts
+  * **Utilities:**
+      * `date-fns` for all date logic
+      * `clsx` & `tailwind-merge` for classname utilities
+  * **Testing:** Vitest (unit tests for utility functions)
+  * **Documentation:** TypeDoc (for generating the `/docs` website)
 
-📥 Install Dependencies
+## 🚀 Getting Started
 
+### Prerequisites
+
+  * Node.js (v18 or above)
+  * npm, yarn, or pnpm
+
+### 1\. Clone the Repository
+
+```bash
+git clone https://github.com/shubhratiwary134/market-seasonality-explorer.git
+cd market-seasonality-explorer
+```
+
+### 2\. Install Dependencies
+
+```bash
 npm install
+# or
+yarn install
+```
 
+### 3\. Set Up Environment Variables
 
-🚧 Start Development Server
+The application uses an external API for market data. You will need to get an API key (e.g., from [Alpha Vantage](https://www.google.com/search?q=httpsS://www.alphavantage.co/) or [Polygon.io](https://www.google.com/search?q=httpsS://polygon.io/)) and configure the `MarketApi.ts` file or an environment variable.
 
+Create a `.env.local` file in the root directory and add your API key:
+
+```env
+VITE_API_KEY=your_api_key_here
+```
+
+*Note: The current `MarketApi.ts` fetches from a static URL. You will need to replace this with your dynamic fetching logic using the API key.*
+
+### 4\. Run the Development Server
+
+```bash
 npm run dev
+```
 
-Then open your browser and go to:
+The application will be running on `http://localhost:5173`.
 
-http://localhost:5173
+### 5\. Run Tests
 
+Unit tests for the utility functions are included and can be run with:
 
+```bash
+npm run test
+```
+
+## 📚 Documentation
+
+This project is thoroughly documented using **TypeDoc**. The complete component and utility documentation is available in the `/docs` folder.
+
+You can view the live documentation here:
+[**https://market-seasonality-explorer.pages.dev/**](https://market-seasonality-explorer.pages.dev/)
+
+To generate the documentation locally, run:
+
+```bash
+npm run docs
+```
