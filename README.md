@@ -102,8 +102,7 @@ To generate the documentation locally, run:
 ```bash
 npm run docs
 ```
-
-
+---
 
 ## Contributing 
 
