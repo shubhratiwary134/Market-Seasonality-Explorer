@@ -8,7 +8,7 @@ The **Market Seasonality Explorer** is a sophisticated financial data visualizat
 
 This application fetches and processes historical market data, aggregating it by month or week to display key performance metrics in an interactive, color-coded calendar view. Users can quickly spot trends, average performance, and volatility to make more informed decisions.
 
-## ✨ Core Features
+##  Core Features
 
   * **Interactive Calendar UI:** A heatmap-style calendar (`CalendarGrid`) that visually represents market performance for each day.
   * **Dynamic Data Aggregation:** Toggle between **Monthly** and **Weekly** views to analyze aggregated seasonality data.
@@ -25,7 +25,7 @@ This application fetches and processes historical market data, aggregating it by
   * **Responsive Design:** A clean, modern UI built with **Tailwind CSS** and **shadcn/ui** components, ensuring a great experience on all devices.
   * **Keyboard Navigation:** Fully accessible calendar navigation using arrow keys, thanks to the `useKeyboardNavigation` hook.
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
   * **Frontend:** React 18
   * **Language:** TypeScript
@@ -40,7 +40,7 @@ This application fetches and processes historical market data, aggregating it by
   * **Testing:** Vitest (unit tests for utility functions)
   * **Documentation:** TypeDoc (for generating the `/docs` website)
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### Prerequisites
 
